@@ -1,13 +1,31 @@
-import { Suspense } from "react";
-import { Box, CssBaseline, AppBar, Toolbar, IconButton } from "@mui/material"
+
+import { Box, CssBaseline, AppBar, Toolbar, IconButton, CircularProgress } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
-import {  useRecoilState } from "recoil";
+import {  useRecoilState, useRecoilValue } from "recoil";
+import { Suspense } from "react";
+import { data, openState } from "./entities/state";
 import LeftSideMenu from "./common/LeftSideMenu"
-import { openState } from "./entities/state";
 
 
 
 const drawerWidth = 290;
+
+function DataComponent() {
+  const dataList = useRecoilValue(data)
+  return (
+    <Box component='div' sx={{marginTop: '64px'}}>
+      {
+        dataList.map((datum : any) => {
+          return <div key={datum.id}>
+            <div>
+              {datum.title}
+            </div>
+          </div>
+        })
+      }
+    </Box>
+  )
+}
 
 function App() {
 
@@ -17,9 +35,10 @@ function App() {
     setMobileOpen(!mobileOpen);
   };
 
-  return ( 
-    <>
-      <Box sx={{ display: 'flex' }}>
+  
+
+  return (
+    <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -42,13 +61,17 @@ function App() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        </Box>
         <LeftSideMenu 
           drawerWidth={drawerWidth}
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
         />
-      </>
+        
+        <Suspense fallback={ <CircularProgress /> }>
+          <DataComponent />
+        </Suspense> 
+        
+    </Box>
   )
 }
 
