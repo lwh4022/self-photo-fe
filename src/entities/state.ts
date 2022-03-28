@@ -56,8 +56,13 @@ const filteredTodoListState = selector({
 const data = selector({
   key : 'data',
   get : async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/todos/')
+    const response = await fetch('https://jsonplaceholder.typicode.com/todo/')
+    
+    if(response.status > 400){
+      throw new Error('Got error')
+    }
     const data = await response.json()
+
     return data
   }
 })

@@ -5,6 +5,7 @@ import {  useRecoilState, useRecoilValue } from "recoil";
 import { Suspense } from "react";
 import { data, openState } from "./entities/state";
 import LeftSideMenu from "./common/LeftSideMenu"
+import ErrorBoundary from "./error/ErrorBoundary";
 
 
 
@@ -66,11 +67,13 @@ function App() {
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
         />
-        
-        <Suspense fallback={ <CircularProgress /> }>
-          <DataComponent />
-        </Suspense> 
-        
+        <Box component="div" sx={{marginTop: '64px'}}>
+          <ErrorBoundary fallbackUIComponent={<h1>Something went wrong.</h1>}>
+            <Suspense fallback={ <CircularProgress /> }>
+              <DataComponent />
+            </Suspense> 
+          </ErrorBoundary>
+        </Box>
     </Box>
   )
 }
