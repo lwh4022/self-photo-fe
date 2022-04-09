@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import RequireAuth from "./auth/authProvider"
-import Main from "./components/main"
+import Main from "./components/Main"
 import SignIn from "./components/SignIn"
 
 function AdminRouter () {

@@ -1,18 +1,16 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Avatar, Collapse, ListItemButton } from '@mui/material';
 import { useState } from 'react';
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
+import { Dashboard, Book, Event, Feedback, Group, Photo, StarBorder } from '@mui/icons-material';
 
 interface Props {
   drawerWidth : number,
@@ -32,7 +30,7 @@ export default function LeftSideMenu(props : Props) {
   const drawer = (
     <div>
       <Toolbar />
-      <Divider sx={{ height: '1px', margin: '27px 18px', background: 'rgba(255, 255, 255, 0.1)'}}/>
+      <Divider sx={{ height: '1px', margin: '0px 0px 16px 0px', background: 'rgba(255, 255, 255, 0.1)'}}/>
       
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom : '16px'}}>
         <Avatar sx={{width :56, height: 56}}alt="person" src="/images/person.jpeg"/>
@@ -48,23 +46,43 @@ export default function LeftSideMenu(props : Props) {
         </Box>
       </Box>
 
-      <Divider sx={{ height: '1px', margin: '27px 18px', background: 'rgba(255, 255, 255, 0.1)'}}/>
+      <Divider sx={{ height: '1px', margin: '16px 0px 16px 0px', background: 'rgba(255, 255, 255, 0.1)'}}/>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text} onClick={handleClicked}>
-            <ListItemIcon sx={{color: 'rgba(255, 255, 255, 0.7)', minWidth: '32px'}}>
-              {
-                index % 2 === 0 
-                ? <InboxIcon /> 
-                : <MailIcon />
-              }
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {
+          [
             {
-              clicked ? <ExpandLess /> : <ExpandMore/> 
-            }
-          </ListItem>
-        ))}
+              title : 'Dashboard',
+              icon : <Dashboard />
+            },
+            {
+              title : 'Users',
+              icon : <Group />
+            },
+            {
+              title : 'Reservation',
+              icon : <Book />
+            }, 
+            {
+              title : 'Photo',
+              icon : <Photo />
+            },
+            {
+              title : 'Events',
+              icon : <Event />
+            },
+            {
+              title : 'Feedback',
+              icon : <Feedback />
+            }].map(({title, icon} : {title : string, icon : JSX.Element}) => (
+            <ListItem button key={title} onClick={handleClicked}>
+              <ListItemIcon sx={{color: 'rgba(255, 255, 255, 0.7)', minWidth: '32px'}}>
+                {icon}
+              </ListItemIcon>
+              <ListItemText primary={title} />
+              
+            </ListItem>
+          ))
+        }
         <Collapse in={clicked} timeout="auto" unmountOnExit>
               <List component="div" disablePadding sx={{marginLeft: '16px;'}}>
               <ListItemButton sx={{ pl: 4 }}>
@@ -99,6 +117,7 @@ export default function LeftSideMenu(props : Props) {
         ModalProps={{
           keepMounted: true, // Better open performance on mobile.
         }}
+        
         sx={{
           display: { xs: 'block', sm: 'none' },
           '& .MuiDrawer-paper': { 
