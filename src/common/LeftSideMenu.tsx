@@ -8,9 +8,10 @@ import ListItemText from '@mui/material/ListItemText';
 
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar, Collapse, ListItemButton } from '@mui/material';
+import { Avatar } from '@mui/material';
 import { useState } from 'react';
-import { Dashboard, Book, Event, Feedback, Group, Photo, StarBorder } from '@mui/icons-material';
+import { Dashboard, Book, Event, Feedback, Group, Photo } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
 
 interface Props {
   drawerWidth : number,
@@ -22,9 +23,12 @@ export default function LeftSideMenu(props : Props) {
   
   const {drawerWidth, mobileOpen, handleDrawerToggle } = props
   const [clicked, setClicked] = useState(false)
+  const navigate = useNavigate()
 
-  const handleClicked = () => {
+
+  const handleClicked = (url : string) => {
     setClicked(!clicked)
+    navigate(url)
   }
 
   const drawer = (
@@ -52,47 +56,42 @@ export default function LeftSideMenu(props : Props) {
           [
             {
               title : 'Dashboard',
+              url : '/',
               icon : <Dashboard />
             },
             {
               title : 'Users',
+              url : '/users',
               icon : <Group />
             },
             {
               title : 'Reservation',
+              url : '/reservation',
               icon : <Book />
             }, 
             {
               title : 'Photo',
+              url : '/photo',
               icon : <Photo />
             },
             {
               title : 'Events',
+              url : '/events',
               icon : <Event />
             },
             {
               title : 'Feedback',
+              url : '/feedback',
               icon : <Feedback />
-            }].map(({title, icon} : {title : string, icon : JSX.Element}) => (
-            <ListItem button key={title} onClick={handleClicked}>
-              <ListItemIcon sx={{color: 'rgba(255, 255, 255, 0.7)', minWidth: '32px'}}>
-                {icon}
-              </ListItemIcon>
-              <ListItemText primary={title} />
-              
-            </ListItem>
+            }].map(( { title, url, icon }) => (
+              <ListItem button key={title} onClick={() => handleClicked(url)}> 
+                <ListItemIcon sx={{color: 'rgba(255, 255, 255, 0.7)', minWidth: '32px'}}>
+                  {icon}
+                </ListItemIcon>
+                <ListItemText primary={title} />    
+              </ListItem>
           ))
         }
-        <Collapse in={clicked} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{marginLeft: '16px;'}}>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon sx={{color: 'rgba(255, 255, 255, 0.7)', minWidth: '32px'}}>
-                  <StarBorder />
-                </ListItemIcon >
-                <ListItemText primary="Starred" />
-              </ListItemButton>
-            </List>
-            </Collapse>
       </List>
     </div>
   );

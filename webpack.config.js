@@ -14,6 +14,26 @@ module.exports = {
   devServer : {
     port : 9000,
     compress: true,
+    historyApiFallback: {
+      index : '/',
+      disableDotRule: true
+    },
+    onBeforeSetupMiddleware: function(devServer) {
+
+      const bodyParser = require('body-parser')
+
+      devServer.app.use(bodyParser.json())
+      devServer.app.post('/api/signin', function(req, res) {
+        const body = req.body
+        if(body.email === 'lee@gmail.com' && body.password === 'abcd1234'){
+          res.status(200)
+          res.json({token : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImxlZSB3b25oZWUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NDk2ODE1NDMsImV4cCI6MTY0OTY4NTE0M30.a0vOnqSLb6F5owiALVOUhFUaN071scYvKYYi9c9xLGg'})
+        } else {
+          res.status(401)
+          res.json({error : 'Unauthorized'})
+        }
+      })
+    },
     client: {
       logging: 'error',
       overlay : {

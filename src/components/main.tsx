@@ -1,39 +1,21 @@
 import { useTranslation } from "react-i18next";
 import { Box, CssBaseline, AppBar, Toolbar, IconButton, CircularProgress } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
-import {  useRecoilState, useRecoilValue } from "recoil";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
+import { Outlet } from "react-router";
 import ErrorBoundary from "../error/ErrorBoundary";
 import LeftSideMenu from "../common/LeftSideMenu";
-import { AppMessage } from "../i18n/lang-utils";
-import { data, openState } from "../entities/state";
 import { Language } from "../common/types";
 
 
-const drawerWidth = 290;
 
-function DataComponent() {
-  const dataList = useRecoilValue(data)
-  return (
-    <Box component='div' sx={{marginTop: '64px'}}>
-      {
-        dataList.map((datum : any) => {
-          return <div key={datum.id}>
-            <div>
-              {datum.title}
-            </div>
-          </div>
-        })
-      }
-    </Box>
-  )
-}
+const drawerWidth = 290;
 
 
 
 function Main() {
 
-  const [mobileOpen, setMobileOpen] = useRecoilState(openState);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -81,13 +63,13 @@ function Main() {
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
       />
-      <Box component="div" sx={{marginTop: '64px'}}>
+      <Box component="div" sx={{marginTop: '64px', padding: '16px', width: '100%'}}>
         <ErrorBoundary fallbackUIComponent={<h1>123</h1>}>
           <Suspense fallback={ <CircularProgress /> }>
-            <div>{t(AppMessage.Welcome_To_React)}</div>
-            <button type="button" onClick={() => changeLang('kr')}>KR</button>
-            <button type="button" onClick={() => changeLang('vn')}>vn</button>
-            
+            {/* <div>{t(AppMessage.Welcome_To_React)}</div> */}
+            {/* <button type="button" onClick={() => changeLang('kr')}>KR</button>
+            <button type="button" onClick={() => changeLang('vn')}>vn</button> */}
+            <Outlet />
           </Suspense> 
         </ErrorBoundary>
       </Box>
