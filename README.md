@@ -1,5 +1,7 @@
 # Self-photo Studio Admin Front-end Project
 
+<img src="readme/self-photo-studio.jpg" width="500">
+
 ## Libraries
 ####  1. React : 17.0.2
 #### 2. React-router : 6.2.2
