@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOpenOutlined'
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { useUserAction } from "../auth/userAction";
-import { authState } from "../entities/state";
+import { authState } from "../entities/user";
 
 
 

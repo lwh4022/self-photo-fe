@@ -1,6 +1,6 @@
 import { useLocation, Navigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import { authState } from "../entities/state";
+import { authState } from "../entities/user";
 
 function RequireAuth( { children } : {children : JSX.Element}) {
 

@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode"
 import { useNavigate } from "react-router"
 import { useSetRecoilState } from "recoil"
-import { authState } from "../entities/state"
+import { authState } from "../entities/user"
 import { getUserToken } from "../services/sign/api"
 
 export { useUserAction }

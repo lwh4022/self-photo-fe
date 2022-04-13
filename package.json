@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack serve",
+    "serve": "set NODE_ENV=dev && webpack serve",
     "test": "jest --config=jest.config.js",
     "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src"
+    "lint:fix": "eslint --fix ./src",
+    "storybook": "start-storybook -p 9090",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -33,6 +35,12 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@storybook/addon-actions": "^6.4.21",
+    "@storybook/addon-essentials": "^6.4.21",
+    "@storybook/addon-interactions": "^6.4.21",
+    "@storybook/addon-links": "^6.4.21",
+    "@storybook/react": "^6.4.21",
+    "@storybook/testing-library": "^0.0.9",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^14.0.0",
@@ -57,7 +65,9 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
+    "msw": "^0.39.2",
     "prettier": "^2.6.1",
+    "storybook": "^6.4.21",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3",
     "webpack": "^5.70.0",
@@ -65,5 +75,8 @@
     "webpack-dev-server": "^4.7.4"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

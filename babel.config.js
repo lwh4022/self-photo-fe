@@ -1,6 +1,6 @@
 
 module.exports = (api) => {
-  api.cache(true)
+  process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true)
   
   return {
     presets: [

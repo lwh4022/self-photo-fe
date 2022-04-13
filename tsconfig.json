@@ -103,6 +103,7 @@
     "./src/**/*.tsx",
   ],
   "exclude": [
+    "./.storybook/*",
     "./babel.config.js",
     "./jest.config.js",
     "./webpack.config.js",
